@@ -18,12 +18,13 @@ namespace BancoDeDadosTI20N
         public int i;
         public int contador;
 
-        public Dao() { 
-            conexao = new MySqlConnection("server=localhost;Database=empresaTI20N;ID=root;password=");
+        public Dao() 
+        { 
+            conexao = new MySqlConnection("server=localhost;Database=empresaTI20N;Uid=root;password=");
             try
             {
                 conexao.Open();// Abrir a conexão
-                MessageBox.Show("Conectado");
+                
 
             }
             catch(Exception ex) 
@@ -35,8 +36,8 @@ namespace BancoDeDadosTI20N
         }//Fim do Construtor 
         public string inserir(long cpf, string nome, string telefone, string endereco)
         {
-            string inserir = $"Insereir into pesso(cpf, nome, telefone, endereco,) values" +
-                $"('{cpf}','{nome}','{telefone}','{endereco}',)";
+            string inserir = $"Insert" +
+                $" into pessoa(cpf, nome, telefone, endereco) values ('{cpf}','{nome}','{telefone}','{endereco}')";
 
             MySqlCommand sql = new MySqlCommand(inserir, conexao);
             string resultado = sql.ExecuteNonQuery() + "Executado!";
@@ -46,7 +47,7 @@ namespace BancoDeDadosTI20N
 
         public void preencherVetor()
         {
-            string query = "seçect * from pessoa";
+            string query = "select * from pessoa";
 
             //Instanciar
             this.cpf = new long[100];
@@ -62,9 +63,9 @@ namespace BancoDeDadosTI20N
 
             i = 0;
             contador = 0;
-            while (leitura.red())
+            while (leitura.Read())
             {
-                cpf[i]      = Convert.ToIn64(leitura["cpf"]);
+                cpf[i]      = Convert.ToInt64(leitura["cpf"]);
                 nome[i]     = leitura["nome"] + "";
                 telefone[i] = leitura["telefone"] + "";
                 endereco[i] = leitura["endereco"] + "";
@@ -83,11 +84,12 @@ namespace BancoDeDadosTI20N
             return contador;
         }// Fim do quantidade de dados
 
-        public string Atulizar(long cpf, string nomeTebela, string campo, string dado)
+        public string Atualizar(long cpf, string nomeTabela, string campo, string dado)
         {
-            string query = $"uptade from  {nomeTebela} set {campo} = '{dado}' where cpf = ' {cpf}'";
+            string query = $"update {nomeTabela} set {campo} = '{dado}' where cpf = '{cpf}'";
             MySqlCommand sql = new MySqlCommand(query, conexao);
             string resultado = sql.ExecuteNonQuery() + "Atualizado!";
+            return resultado;
         }//Fim do método
 
         public string Excluir(long cpf, string nomeTabela)

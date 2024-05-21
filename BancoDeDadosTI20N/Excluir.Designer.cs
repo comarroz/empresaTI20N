@@ -71,6 +71,7 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "Excluir";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Cancelar
             // 
@@ -80,6 +81,7 @@
             this.Cancelar.TabIndex = 5;
             this.Cancelar.Text = "Cancelar";
             this.Cancelar.UseVisualStyleBackColor = true;
+            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
             // 
             // Excluir
             // 
